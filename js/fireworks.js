@@ -62,6 +62,12 @@ var Fireworks = (function() {
    * new firework on touch / click
    */
   function createFirework() {
+
+    var audio = new Audio('audio.mp3');
+    console.log(audio)
+    result = audio.play()
+    console.log(result)
+
     createParticle();
   }
 
