@@ -15,34 +15,15 @@
  */
 
 
-let socket = new WebSocket('wss://127.0.0.1:8080');
-
-socket.onopen = function(e) {
-  alert("[open] Connection established");
-  alert("Sending to server");
-  socket.send("My name is John");
-};
-
-socket.onmessage = function(event) {
-  alert('[message] Data received from server: ${event.data}');
-};
-
-socket.onclose = function(event) {
-  if (event.wasClean) {
-    alert('[close] Connection closed cleanly, code=${event.code} reason=${event.reason}');
-  } else {
-    // e.g. server process killed or network down
-    // event.code is usually 1006 in this case
-    alert('[close] Connection died');
-  }
-};
-
-socket.onerror = function(error) {
-  alert('[error] ${error.message}');
-};
-
-
 var Fireworks = (function() {
+
+  var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+  socket.on('launch_firework', function() {
+    createFirework();
+  })
+
+
 
   // declare the variables we need
   var particles = [],
@@ -91,10 +72,23 @@ var Fireworks = (function() {
    */
   function createFirework() {
 
+
     var audio = new Audio('/static/audio/audio.mp3');
-    console.log(audio)
-    result = audio.play()
-    console.log(result)
+    // Show loading animation.
+    var playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        // Automatic playback started!
+        // Show playing UI.
+	//audio.pause();
+      })
+      .catch(error => {
+        // Auto-play was prevented
+        // Show paused UI.
+	//audio.load();
+      });
+    }
 
     createParticle();
   }
