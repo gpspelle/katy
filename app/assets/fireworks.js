@@ -73,7 +73,7 @@ var Fireworks = (function() {
   function createFirework() {
 
 
-    var audio = new Audio('/static/audio/audio.mp3');
+    var audio = new Audio('/katy/assets/audio.mp3');
     // Show loading animation.
     var playPromise = audio.play();
 
@@ -115,7 +115,7 @@ var Fireworks = (function() {
       fireworkContext.fillStyle = "hsl(" + Math.round(c * 3.6) + ",100%,60%)";
       fireworkContext.fillRect(gridX, gridY, gridSize, gridSize);
       fireworkContext.drawImage(
-        Library.bigGlow,
+        bigGlow,
         gridX,
         gridY);
     }
@@ -336,7 +336,7 @@ Particle.prototype = {
     context.drawImage(fireworkCanvas,
       this.gridX, this.gridY, 12, 12,
       x - 6, y - 6, 12, 12);
-    context.drawImage(Library.smallGlow, x - 3, y - 3);
+    context.drawImage(smallGlow, x - 3, y - 3);
 
     context.restore();
   }
@@ -347,10 +347,12 @@ Particle.prototype = {
  * Stores references to the images that
  * we want to reference later on
  */
-var Library = {
-  bigGlow: document.getElementById('big-glow'),
-  smallGlow: document.getElementById('small-glow')
-};
+
+var bigGlow = new Image();
+var smallGlow = new Image();
+
+bigGlow.src = "/katy/assets/big-glow.png";
+smallGlow.src = "/katy/assets/small-glow.png";
 
 /**
  * Stores a collection of functions that
