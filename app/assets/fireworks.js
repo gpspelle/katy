@@ -112,7 +112,7 @@ var Fireworks = (function() {
       var gridX = marker % size;
       var gridY = Math.floor(marker / size) * gridSize;
 
-      fireworkContext.fillStyle = "hsl(" + Math.round(c * 3.6) + ",100%,60%)";
+      fireworkContext.fillStyle = "hsl(" + Math.round(c * 3.6) + ",100%,25%)";
       fireworkContext.fillRect(gridX, gridY, gridSize, gridSize);
       fireworkContext.drawImage(
         bigGlow,
@@ -144,7 +144,7 @@ var Fireworks = (function() {
    * black. The bonus of this is the trails effect we get
    */
   function clearContext() {
-    mainContext.fillStyle = "rgba(0,0,0,0.2)";
+    mainContext.fillStyle = "rgb(242,242,242)";
     mainContext.fillRect(0, 0, viewportWidth, viewportHeight);
   }
 
@@ -212,7 +212,8 @@ var Fireworks = (function() {
           y: vel.y || 0
         },
 
-        color || Math.floor(Math.random() * 100) * 12,
+        //color || Math.floor(Math.random() * 100) * 12,
+	color,
 
         usePhysics)
     );
@@ -246,7 +247,7 @@ var Particle = function(pos, target, vel, marker, usePhysics) {
   this.GRAVITY  = 0.06;
   this.alpha    = 1;
   this.easing   = Math.random() * 0.02;
-  this.fade     = Math.random() * 0.1;
+  this.fade     = Math.random() * 0.025;
   this.gridX    = marker % 120;
   this.gridY    = Math.floor(marker / 120) * 12;
   this.color    = marker;
@@ -318,12 +319,12 @@ Particle.prototype = {
         yVel = (y - this.lastPos.y) * -5;
 
     context.save();
-    context.globalCompositeOperation = 'lighter';
+    context.globalCompositeOperation = 'source-over';
     context.globalAlpha = Math.random() * this.alpha;
 
     // draw the line from where we were to where
     // we are now
-    context.fillStyle = "rgba(255,255,255,0.3)";
+    context.fillStyle = "rgba(0,0,0,0.3)";
     context.beginPath();
     context.moveTo(this.pos.x, this.pos.y);
     context.lineTo(this.pos.x + 1.5, this.pos.y);

@@ -17,12 +17,14 @@
 .firework {
   padding: 0;
   margin: 0;
-  width: 100%;
-  height: 1000px;
-  background: #000;
   overflow: hidden;
 }
 
 canvas {
+  top: 0px;
+  left: 20rem;
+  width: -moz-available;
+  height: 100%;
+  position: absolute;
   -webkit-transform: translateZ(0);
 }
